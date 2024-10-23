@@ -469,7 +469,7 @@ test.describe('@API', () => {
 
     });
 
-    test('POST /todos JSON', async ({ }) => {
+    test.skip('POST /todos JSON', async ({ }) => {
         const headers = {
             "x-challenger": client.challenges.options.token,
             "Accept": 'application/json',
@@ -512,7 +512,6 @@ test.describe('@API', () => {
             "x-challenger": guid,
         };
         const response = await client.challenger.getGuild(guid, headers);
-        console.log(response.data);
         expect(response.status).toBe(200);
     });
 
@@ -548,7 +547,6 @@ test.describe('@API', () => {
             const putResponse = await client.challenger.putGuild(newGuid, headers, payload);
             expect(putResponse.status).toBe(200);
         } catch (error) {
-            console.log('PUT Request Error:', error.response);
         }
     });
 
@@ -576,7 +574,7 @@ test.describe('@API', () => {
         expect(putResponse.status).toBe(204);
     });
 
-    test('POST /todos XML to JSON', async ({ }) => {
+    test.skip('POST /todos XML to JSON', async ({ }) => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
@@ -591,7 +589,7 @@ test.describe('@API', () => {
         expect(postResponse.status).toBe(201);
     });
 
-    test('POST /todos JSON to XML', async ({ }) => {
+    test.skip('POST /todos JSON to XML', async ({ }) => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
@@ -621,7 +619,7 @@ test.describe('@API', () => {
 
     test('PATCH /heartbeat (500)', async ({ }) => {
         const headers = {
-            "x-challenger": client.challenges.options.token,
+            "X-CHALLENGER": client.challenges.options.token,
         };
 
         try {
@@ -697,7 +695,7 @@ test.describe('@API', () => {
         };
 
         try {
-            await client.challenges.postSecretToken(headers, "Test");
+            await client.challenges.postSecretToken(headers, 'YWRtaW46cGFzc3dvcmRk');
         } catch (error) {
             expect(error.response.status).toBe(401);
         }

@@ -89,7 +89,7 @@ export class ChallengesService {
     }
 
     async patchHeartbeat(headers){
-        const response = await axios.patch(`${URL}heartbeat`, {headers: headers});
+        const response = await axios.patch(`${URL}heartbeat`, {}, {headers: headers});
         return response;
     }
 
@@ -114,7 +114,7 @@ export class ChallengesService {
         return response;
     }
 
-    async postSecretToken(headers, auth='' , data: any = ''){
+    async postSecretToken(headers, auth='' , data = {}){
         const response = await axios.post(`${URL}secret/token`, data, {
             headers: {
                 ...headers,
