@@ -2,18 +2,22 @@ import axios from "axios";
 
 let URL = 'https://apichallenges.herokuapp.com/';
 
+axios.defaults.validateStatus = function () {
+    return true;
+};
+
 export class ChallengerService {
     options: any;
-        constructor (options: any){
-            this.options = options;
-        }
-    async post(){
+    constructor(options: any) {
+        this.options = options;
+    }
+    async post() {
         const response = await axios.post(`${URL}challenger`);
         return response;
     }
 
-    async getGuild(guid, header){
-        const response = await axios.get(`${URL}challenger/${guid}`, {headers: header});
+    async getGuild(guid: string, header: any) {
+        const response = await axios.get(`${URL}challenger/${guid}`, { headers: header });
         return response;
     }
 

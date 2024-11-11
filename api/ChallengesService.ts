@@ -2,66 +2,66 @@ import axios from "axios";
 
 let URL = 'https://apichallenges.herokuapp.com/';
 
+axios.defaults.validateStatus = function () {
+    return true;
+};
+
 export class ChallengesService {
     options: any;
-    constructor (options){
+    constructor(options) {
         this.options = options;
-        // axios.interceptors.request.use(request => {
-        //     console.log('Starting Request', request);
-        //     return request;
-        // });
     }
 
-    async get(headers){
-        const response = await axios.get(`${URL}challenges`, {headers: headers});
+    async get(headers: any) {
+        const response = await axios.get(`${URL}challenges`, { headers: headers });
         return response;
     }
 
-    async getTodos(headers, qs = ''){
-        const response = await axios.get(`${URL}todos${qs}`, {headers: headers});
+    async getTodos(headers: any, qs: string = '') {
+        const response = await axios.get(`${URL}todos${qs}`, { headers: headers });
         return response;
     }
 
-    async getTodo(headers){
-        const response = await axios.get(`${URL}todo`, {headers: headers});
+    async getTodo(headers: any) {
+        const response = await axios.get(`${URL}todo`, { headers: headers });
         return response;
     }
 
-    async getTodoById(headers, id, qs = ''){
-        const response = await axios.get(`${URL}todos/${id}${qs}`, {headers: headers});
+    async getTodoById(headers: any, id: string, qs: string = '') {
+        const response = await axios.get(`${URL}todos/${id}${qs}`, { headers: headers });
         return response;
     }
 
-    async headTodos(headers){
-        const response = await axios.head(`${URL}todos`, {headers: headers});
+    async headTodos(headers: any) {
+        const response = await axios.head(`${URL}todos`, { headers: headers });
         return response;
     }
 
-    async postTodos(headers, data){
-        const response = await axios.post(`${URL}todos`, data, {headers: headers});
+    async postTodos(headers: any, data: any) {
+        const response = await axios.post(`${URL}todos`, data, { headers: headers });
         return response;
     }
-    async postTodosId(headers, data, id){
-        const response = await axios.post(`${URL}todos/${id}`, data, {headers: headers});
-        return response;
-    }
-
-    async putTodos(headers, id, data){
-        const response = await axios.put(`${URL}todos/${id}`, data, {headers: headers});
+    async postTodosId(headers: any, data: any, id: string) {
+        const response = await axios.post(`${URL}todos/${id}`, data, { headers: headers });
         return response;
     }
 
-    async deleteTodos(headers, id){
-        const response = await axios.delete(`${URL}todos/${id}`, {headers: headers});
+    async putTodos(headers: any, id: string, data: any) {
+        const response = await axios.put(`${URL}todos/${id}`, data, { headers: headers });
         return response;
     }
 
-    async optionsTodos(headers){
-        const response = await axios.options(`${URL}todos`, {headers: headers});
+    async deleteTodos(headers: any, id: string) {
+        const response = await axios.delete(`${URL}todos/${id}`, { headers: headers });
         return response;
     }
 
-    async postTodoXml(headers, xmlData) {
+    async optionsTodos(headers: any) {
+        const response = await axios.options(`${URL}todos`, { headers: headers });
+        return response;
+    }
+
+    async postTodoXml(headers: any, xmlData: any) {
         const response = await axios.post(`${URL}todos`, xmlData, {
             headers: {
                 ...headers,
@@ -72,7 +72,7 @@ export class ChallengesService {
         return response;
     }
 
-    async postTodoJSON(headers, JSONData){
+    async postTodoJSON(headers: any, JSONData: any) {
         const response = await axios.post(`${URL}todos`, JSONData, {
             headers: {
                 ...headers,
@@ -83,17 +83,17 @@ export class ChallengesService {
         return response;
     }
 
-    async deleteHeartbeat(headers){
-        const response = await axios.delete(`${URL}heartbeat`, {headers: headers});
+    async deleteHeartbeat(headers: any) {
+        const response = await axios.delete(`${URL}heartbeat`, { headers: headers });
         return response;
     }
 
-    async patchHeartbeat(headers){
-        const response = await axios.patch(`${URL}heartbeat`, {}, {headers: headers});
+    async patchHeartbeat(headers: any) {
+        const response = await axios.patch(`${URL}heartbeat`, {}, { headers: headers });
         return response;
     }
 
-    async traceHeartbeat(headers) {
+    async traceHeartbeat(headers: any) {
         const response = await axios.request({
             url: `${URL}heartbeat`,
             method: 'trace',
@@ -102,19 +102,19 @@ export class ChallengesService {
         return response;
     }
 
-    async getHeartbeat(headers){
-        const response = await axios.get(`${URL}heartbeat`, {headers: headers});
+    async getHeartbeat(headers: any) {
+        const response = await axios.get(`${URL}heartbeat`, { headers: headers });
         return response;
     }
 
-    async postHeartbeatOverride(headers) {
+    async postHeartbeatOverride(headers: any) {
         const response = await axios.post(`${URL}heartbeat`, null, {
-            headers: {...headers}
+            headers: { ...headers }
         });
         return response;
     }
 
-    async postSecretToken(headers, auth='' , data = {}){
+    async postSecretToken(headers: any, auth = '', data = {}) {
         const response = await axios.post(`${URL}secret/token`, data, {
             headers: {
                 ...headers,
@@ -124,12 +124,12 @@ export class ChallengesService {
         return response;
     }
 
-    async getSecretNote(headers) {
+    async getSecretNote(headers: any) {
         const response = await axios.get(`${URL}secret/note`, { headers: headers });
         return response;
     }
 
-    async postSecretNote(headers, data) {
+    async postSecretNote(headers: any, data: any) {
         const response = await axios.post(`${URL}secret/note`, data, { headers: headers });
         return response;
     }

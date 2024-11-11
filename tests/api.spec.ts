@@ -10,7 +10,6 @@ test.describe('@API', () => {
         const token = headers["x-challenger"];
         client.options = { token };
         client.challenges.options = { token };
-        console.log(client.challenges.options);
 
     });
 
@@ -36,11 +35,9 @@ test.describe('@API', () => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
-        try {
-            await client.challenges.getTodo(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(404);
-        }
+        const error = await client.challenges.getTodo(headers);
+        expect(error.status).toBe(404);
+
     });
 
     test("GET /todos/{id} (200)", async ({ }) => {
@@ -56,11 +53,8 @@ test.describe('@API', () => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
-        try {
-            await client.challenges.getTodoById(headers, 121);
-        } catch (error) {
-            expect(error.response.status).toBe(404);
-        }
+        const error = await client.challenges.getTodoById(headers, 121);
+        expect(error.status).toBe(404);
     });
 
     test("GET /todos (200) ?filter", async ({ }) => {
@@ -120,11 +114,8 @@ test.describe('@API', () => {
             "doneStatus": "test",
             "description": ""
         };
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(400);
     });
 
     test("POST /todos (400) title too long", async ({ }) => {
@@ -136,11 +127,8 @@ test.describe('@API', () => {
             "doneStatus": true,
             "description": ""
         };
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(400);
     });
 
     test("POST /todos (400) description too long", async ({ }) => {
@@ -152,11 +140,9 @@ test.describe('@API', () => {
             "doneStatus": true,
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. Lorem Ipsum"
         };
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(400);
+
     });
 
     test("POST /todos (201) max out content", async ({ }) => {
@@ -185,11 +171,9 @@ test.describe('@API', () => {
             "doneStatus": true,
             "description": "This is a test description."
         };
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.response.status).toBe(413);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(413);
+
     });
 
     test('POST /todos (400) extra field', async ({ }) => {
@@ -202,11 +186,9 @@ test.describe('@API', () => {
             "description": "This is a test description.",
             "chapter": "Ultramarine"
         };
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(400);
+
     });
 
     test('PUT /todos/{id} (400) invalid payload', async ({ }) => {
@@ -220,11 +202,8 @@ test.describe('@API', () => {
             "description": "This is a test description."
         };
 
-        try {
-            await client.challenges.putTodos(headers, 123, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.putTodos(headers, 123, data);
+        expect(error.status).toBe(400);
     });
 
     test('POST /todos/{id} (200) Issue a POST request to successfully update a todo', async ({ }) => {
@@ -251,11 +230,9 @@ test.describe('@API', () => {
         let data = {
             "title": "Test title",
         }
-        try {
-            await client.challenges.postTodosId(headers, data, 123);
-        } catch (error) {
-            expect(error.response.status).toBe(404);
-        }
+        const error = await client.challenges.postTodosId(headers, data, 123);
+        expect(error.status).toBe(404);
+
     });
 
     test('PUT /todos/{id} (200) Issue a PUT request to successfully update a todo', async ({ }) => {
@@ -310,11 +287,9 @@ test.describe('@API', () => {
         }
         let response = await client.challenges.postTodos(headers, origin);
         let id = response.data.id;
-        try {
-            await client.challenges.putTodos(headers, id, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.putTodos(headers, id, data);
+        expect(error.status).toBe(400);
+
     });
 
     test('PUT /todos/{id} no amend id (400)', async ({ }) => {
@@ -331,11 +306,9 @@ test.describe('@API', () => {
         }
         let response = await client.challenges.postTodos(headers, origin);
         let id = response.data.id;
-        try {
-            await client.challenges.putTodos(headers, id, data);
-        } catch (error) {
-            expect(error.response.status).toBe(400);
-        }
+        const error = await client.challenges.putTodos(headers, id, data);
+        expect(error.status).toBe(400);
+
     });
 
     test('DELETE /todos/{id} (200)', async ({ }) => {
@@ -449,11 +422,9 @@ test.describe('@API', () => {
             "Accept": 'application/gzip'
         };
 
-        try {
-            await client.challenges.getTodos(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(406);
-        }
+        const error = await client.challenges.getTodos(headers);
+        expect(error.status).toBe(406);
+
     });
 
     test('POST /todos XML', async ({ }) => {
@@ -499,11 +470,9 @@ test.describe('@API', () => {
             "description": "This is a test description."
         }
 
-        try {
-            await client.challenges.postTodos(headers, data);
-        } catch (error) {
-            expect(error.status).toBe(415);
-        }
+        const error = await client.challenges.postTodos(headers, data);
+        expect(error.status).toBe(415);
+
     });
 
     test('GET /challenger/guid (existing X-CHALLENGER)', async ({ }) => {
@@ -543,11 +512,9 @@ test.describe('@API', () => {
 
         const newGuid = "new-guid-not-in-memory";
 
-        try {
-            const putResponse = await client.challenger.putGuild(newGuid, headers, payload);
-            expect(putResponse.status).toBe(200);
-        } catch (error) {
-        }
+        const putResponse = await client.challenger.putGuild(newGuid, headers, payload);
+        expect(putResponse.status).toBe(200);
+
     });
 
     test('GET /challenger/database/guid', async ({ }) => {
@@ -610,11 +577,8 @@ test.describe('@API', () => {
             "x-challenger": client.challenges.options.token,
         };
 
-        try {
-            await client.challenges.deleteHeartbeat(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(405);
-        };
+        const error = await client.challenges.deleteHeartbeat(headers);
+        expect(error.status).toBe(405);
     });
 
     test('PATCH /heartbeat (500)', async ({ }) => {
@@ -622,23 +586,17 @@ test.describe('@API', () => {
             "X-CHALLENGER": client.challenges.options.token,
         };
 
-        try {
-            await client.challenges.patchHeartbeat(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(500);
-        };
+        const error = await client.challenges.patchHeartbeat(headers);
+        expect(error.status).toBe(500);
     });
 
-    test('TRACE /heartbeat (501)', async ({ }) => { 
+    test('TRACE /heartbeat (501)', async ({ }) => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
 
-        try {
-            await client.challenges.traceHeartbeat(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(501);
-        };
+        const error = await client.challenges.traceHeartbeat(headers);
+        expect(error.status).toBe(501);
     });
 
     test('GET /heartbeat (204)', async ({ }) => {
@@ -655,12 +613,8 @@ test.describe('@API', () => {
             "x-challenger": client.challenges.options.token,
             'X-HTTP-Method-Override': 'DELETE'
         };
-
-        try {
-            await client.challenges.postHeartbeatOverride(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(405);
-        };
+        const error = await client.challenges.postHeartbeatOverride(headers);
+        expect(error.status).toBe(405);
     });
 
     test('POST /heartbeat as PATCH (500)', async ({ }) => {
@@ -669,11 +623,8 @@ test.describe('@API', () => {
             'X-HTTP-Method-Override': 'PATCH'
         };
 
-        try {
-            await client.challenges.postHeartbeatOverride(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(500);
-        };
+        const error = await client.challenges.postHeartbeatOverride(headers);
+        expect(error.status).toBe(500);
     });
 
     test('POST /heartbeat as Trace (501)', async ({ }) => {
@@ -681,12 +632,8 @@ test.describe('@API', () => {
             "x-challenger": client.challenges.options.token,
             'X-HTTP-Method-Override': 'TRACE'
         };
-
-        try {
-            await client.challenges.postHeartbeatOverride(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(501);
-        };
+        const error = await client.challenges.postHeartbeatOverride(headers);
+        expect(error.status).toBe(501);
     });
 
     test('POST /secret/token (401)', async ({ }) => {
@@ -694,11 +641,9 @@ test.describe('@API', () => {
             "x-challenger": client.challenges.options.token,
         };
 
-        try {
-            await client.challenges.postSecretToken(headers, 'YWRtaW46cGFzc3dvcmRk');
-        } catch (error) {
-            expect(error.response.status).toBe(401);
-        }
+        const error = await client.challenges.postSecretToken(headers, 'YWRtaW46cGFzc3dvcmRk');
+        expect(error.status).toBe(401);
+
     });
 
     test('POST /secret/token (200)', async ({ }) => {
@@ -716,23 +661,18 @@ test.describe('@API', () => {
             "X-AUTH-TOKEN": "TEST"
         };
 
-        try {
-            await client.challenges.getSecretNote(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(403);
-        }
+        const error = await client.challenges.getSecretNote(headers);
+        expect(error.status).toBe(403);
+
     });
 
     test('GET /secret/note (401)', async ({ }) => {
         const headers = {
             "x-challenger": client.challenges.options.token,
         };
+        const error = await client.challenges.getSecretNote(headers);
+        expect(error.status).toBe(401);
 
-        try {
-            await client.challenges.getSecretNote(headers);
-        } catch (error) {
-            expect(error.response.status).toBe(401);
-        }
     });
 
     test('GET /secret/note (Bearer)', async ({ }) => {
